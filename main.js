@@ -166,12 +166,13 @@ document.addEventListener("DOMContentLoaded", () => {
   container = document.getElementById("board")
 
   if (container)
-    container.addEventListener("mouseup", (target) =>
-      Card.click(target.originalTarget)
-    )
+    container.addEventListener("mouseup", (target) => {
+      const card = target.target
+      Card.click(card)
+    })
 
-  Game.changeLevel(0)
-  Game.reload()
+  Game.changeLevel(1)
+  // Game.reload()
 })
 
 function loadLevels() {
@@ -185,7 +186,6 @@ function loadLevels() {
     option.innerText = x[1].name
 
     levelIndicator.appendChild(option)
-    console.log(x[1].name)
   })
 }
 
