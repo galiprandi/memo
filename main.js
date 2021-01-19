@@ -1,7 +1,6 @@
 /**
  Data Source:
-    https://picsum.photos/v2/list?page=10&limit=10
-    https://picsum.photos/seed/picsum/500
+    https://picsum.photos/${cardSize}?random=${index}
  */
 
 let Config = null
