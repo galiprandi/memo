@@ -78,6 +78,9 @@ const Game = {
     console.log("Horizontals Cards:", horizontalCardNumber)
     console.log("Card Size:", cardSize)
 
+    // Center card
+    container.style.justifySelf = "center"
+
     container.style.visibility = "hidden"
     container.innerHTML = ""
 
