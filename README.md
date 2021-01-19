@@ -1,8 +1,20 @@
 # Memo
-### Memo es una simpática adaptación del clásico juego para poner a prueba tu memoria.
 
-Con niveles sensillos que son útiles para entrenar la motricidad fina en niños pequeños o personas con problemas de motricidad, hasta niveles completamente insalubres que desquiciarán hasta a el más cuerdo.
+### Memo is a nice adaptation of the classic game to test your memory.
 
-Realizado por: Germán Aliprandi
+### With simple levels that are useful for training fine motor skills in young children or people with mobility problems, to completely unhealthy levels that will unhinge even the most sane.
 
-#### Memo es un ejercicio en el cuál el creador buscar ejercitar la programación y la lógica.
+---
+
+Created by: Germán Aliprandi
+
+---
+
+> Memo is an exercise in which I seek to exercise programming and logic without major pretentions.
+
+Technologies used:
+
+- Vanilla JS
+- Vanilla CSS
+- Vanilla HTML
+- Much coffee
