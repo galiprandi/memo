@@ -51,6 +51,12 @@ const Game = {
     Game.reload()
   },
 
+  setInsane: () => {
+    const btn = document.getElementById("btn-insane")
+    btn.classList.toggle("active")
+    container.classList.toggle("insane")
+  },
+
   newAttemps: () => {
     Game.attempts++
     const showAttemps = document.getElementById("attempts")
