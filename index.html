@@ -1,51 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Memo</title>
-    <meta name="description" content="Memo es una simpática adaptación del clásico juego para poner a prueba tu memoria.">
-    <link rel="stylesheet" href="main.css">
+    <meta
+      name="description"
+      content="Memo es una simpática adaptación del clásico juego para poner a prueba tu memoria."
+    />
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <secction class="board" id="board"> </secction>
 
-</head>
-<body>
-    <secction class="board" id="board">
-    </secction>
-    
     <aside>
-        <header>
+      <header>
+        <h1>Memo</h1>
+      </header>
 
-            <h1>
-                Memo
-            </h1>
-        </header>
-        
-        <section class="stat">
-            <h4>Attempts: <span id="attempts">0</span></h4>
-            <h4>Discovery <span id="discovery">0</span> pairs</h4>
-        </section>
-        <section class="options" id="options">
-            <h4>options</h4>
-            <select name="level" id="level" onchange="Game.changeLevel(this.value)">
-                <!-- 
-                <option value="0" selected>Mom's Baby</option>
-                <option value="1">Bermudas Boy</option>
-                <option value="2">Insane</option> 
-            -->
-            </select>
-            <button id="btn-insane" class="danger" onclick="Game.setInsane()">Insane mode</button>
-            <button onclick="Game.reload()">Restart Game</button>
-            <button onclick="location.reload()">Load New Cards</button>
-        </section>
-        <footer>
-            <small>
-                <p>Created by <a href="mailto:galiprandi@gmail.com">Germán Aliprandi</a></p>
-                <p> Power by <a href="https://picsum.photos/" target="_blank" rel="noopener noreferrer">Lorem Picsum Photos</a></p>
-            </small>
-        </footer>
+      <section class="stat">
+        <h4>Attempts: <span id="attempts">0</span></h4>
+        <h4>Discovery: <span id="discovery">0</span> pairs</h4>
+        <h4>Time: <span id="timer">00:00:00</span></h4>
+      </section>
+      <section class="options" id="options">
+        <h4>options</h4>
+        <select
+          name="level"
+          id="level"
+          onchange="Game.changeLevel(this.value)"
+        ></select>
+        <button id="btn-insane" class="danger" onclick="Game.setInsane()">
+          Insane mode
+        </button>
+        <button onclick="Game.reload()">Restart Game</button>
+        <button onclick="location.reload()">Load New Cards</button>
+      </section>
+      <footer>
+        <small>
+          <p>
+            Created by
+            <a href="https://github.com/galiprandi">Germán Aliprandi</a>
+          </p>
+          <p>
+            Power by
+            <a
+              href="https://picsum.photos/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Lorem Picsum Photos</a
+            >
+          </p>
+        </small>
+      </footer>
     </aside>
-    
-    
+
     <script src="main.js"></script>
-</body>
+  </body>
 </html>

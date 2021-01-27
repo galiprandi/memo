@@ -86,7 +86,7 @@ aside > * > * {
   align-items: center;
 }
 
-.board.insane > .card > img {
+.board.insane > .card:not(.uncover) > img {
   filter: grayscale();
   z-index: -1;
 }

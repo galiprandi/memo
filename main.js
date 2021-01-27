@@ -38,6 +38,7 @@ const Game = {
 
   win: () => {
     Game.endGame
+    Game.timerStop()
     alert(`Congratulations, you have won in ${Game.attempts} attempts !`)
   },
 
@@ -100,20 +101,57 @@ const Game = {
     document.getElementById("attempts").innerText = 0
     document.getElementById("discovery").innerText = 0
   },
+
+  // Timer Function
+  timerCount: 0,
+  timer: null,
+
+  timerShow: (srtToShow) => {
+    const display = document.getElementById("timer")
+    display.innerHTML = srtToShow
+  },
+
+  timerStart: () => {
+    Game.timer = setInterval(() => {
+      Game.timerUp()
+    }, 1000)
+  },
+
+  timerStop: () => {
+    window.clearInterval(Game.timer)
+  },
+
+  timerReset: () => {
+    Game.timerCount = 0
+  },
+
+  timerUp: () => {
+    Game.timerCount++
+
+    const srtToShow = Game.timerCount.toHHMMSS()
+
+    Game.timerShow(srtToShow)
+  },
 } // Game
 
 const Card = {
   uncoverCard: null,
+  timeoutID: null,
 
   click: (card) => {
     if (Game.endGame || Card.uncoverCard === card) return
 
+    if (Game.timerCount === 0) Game.timerStart()
+
+    // First Click
     if (Card.uncoverCard === null) {
+      Card.hideActiveCards()
       Card.showCard(card)
       Card.uncoverCard = card
       return
     }
 
+    // Second Click
     if (
       Card.uncoverCard != null &&
       Card.uncoverCard.dataset.pairid === card.dataset.pairid
@@ -140,7 +178,8 @@ const Card = {
   },
 
   coverPair: async (id) => {
-    setTimeout(Card.hideActiveCards, Config.timeToShow)
+    Card.timeoutID = window.setTimeout(Card.hideActiveCards, Config.timeToShow)
+    // console.log(timeoutID)
   },
 
   uncoverPair: (id) => {
@@ -150,7 +189,9 @@ const Card = {
     const pairs = [...document.querySelectorAll(`[data-pairid='${id}']`)]
     pairs.forEach((card) => card.classList.add("uncover"))
   },
+
   hideActiveCards: () => {
+    window.clearTimeout(Card.timeoutID)
     const activeCards = [...document.getElementsByClassName("active")]
     activeCards.forEach((card) => card.classList.remove("active"))
   },
@@ -215,4 +256,26 @@ function arraySuflle(array) {
     .map((a) => ({ sort: Math.random(), value: a }))
     .sort((a, b) => a.sort - b.sort)
     .map((a) => a.value)
+}
+
+// Seconds to HH:MM:SS
+Number.prototype.toHHMMSS = function () {
+  if (!this) return // don't forget the second param
+
+  var sec_num = parseInt(this, 10)
+  var hours = Math.floor(sec_num / 3600)
+  var minutes = Math.floor((sec_num - hours * 3600) / 60)
+  var seconds = sec_num - hours * 3600 - minutes * 60
+
+  if (hours < 10) {
+    hours = "0" + hours
+  }
+  if (minutes < 10) {
+    minutes = "0" + minutes
+  }
+  if (seconds < 10) {
+    seconds = "0" + seconds
+  }
+
+  return hours + ":" + minutes + ":" + seconds
 }
