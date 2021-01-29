@@ -110,6 +110,7 @@ aside > * > * {
 .card > img,
 .card::before {
   border-radius: 0.5em;
+  box-shadow: rgba(100, 100, 100, 0.5) 3px 3px 3px 0;
 }
 
 .card::before {
