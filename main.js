@@ -19,12 +19,12 @@ const gameParameters = {
   },
   2: {
     name: "Responsible adult",
-    numberOfCards: 64,
+    numberOfCards: 32,
     timeToShow: 2000,
   },
   3: {
     name: "Insane",
-    numberOfCards: 32,
+    numberOfCards: 64,
     timeToShow: 1000,
   },
 }
@@ -50,6 +50,8 @@ const Game = {
       level
     ].selected = "selected"
     Game.reload()
+    Game.timerStop()
+    Game.timerReset()
   },
 
   setInsane: () => {
@@ -64,20 +66,22 @@ const Game = {
     showAttemps.innerText = Game.attempts
   },
 
-  reload: () => {
-    // Calculate card size
-    const horizontalCardNumber = Math.sqrt(Config.numberOfCards).toFixed(0)
-
-    let screenSize =
+  calculateCardSize: () => {
+    const cardMargin = 10
+    const horizontalCard = Math.trunc(Math.sqrt(Config.numberOfCards))
+    const minimalWorkspace =
       container.clientHeight - container.clientWidth < 0
         ? container.clientHeight
         : container.clientWidth
 
-    const cardSize = (screenSize / horizontalCardNumber).toFixed(0) - 40
+    const cardSize = Math.trunc(
+      minimalWorkspace / horizontalCard - cardMargin * 2
+    )
+    return cardSize
+  },
 
-    console.log("Screen Size", screenSize)
-    console.log("Horizontals Cards:", horizontalCardNumber)
-    console.log("Card Size:", cardSize)
+  reload: () => {
+    const cardSize = Game.calculateCardSize()
 
     // Center card
     container.style.justifySelf = "center"
@@ -123,13 +127,13 @@ const Game = {
 
   timerReset: () => {
     Game.timerCount = 0
+    const srtToShow = Game.timerCount.toHHMMSS()
+    Game.timerShow(srtToShow)
   },
 
   timerUp: () => {
     Game.timerCount++
-
     const srtToShow = Game.timerCount.toHHMMSS()
-
     Game.timerShow(srtToShow)
   },
 } // Game
