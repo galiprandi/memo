@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
     <title>Memo</title>
     <meta
       name="description"
@@ -18,29 +19,40 @@
         <h1>Memo</h1>
       </header>
 
-      <section class="stat">
+      <section class="stat" title="Game Statistics">
         <h4>Attempts: <span id="attempts">0</span></h4>
         <h4>Discovery: <span id="discovery">0</span> pairs</h4>
         <h4>Time: <span id="timer">00:00:00</span></h4>
       </section>
-      <section class="options" id="options">
+      <section class="options" id="options" title="Select game dificulty">
         <h4>options</h4>
         <select
           name="level"
           id="level"
           onchange="Game.changeLevel(this.value)"
         ></select>
-        <button id="btn-insane" class="danger" onclick="Game.setInsane()">
+        <button
+          id="btn-insane"
+          class="danger"
+          onclick="Game.setInsane()"
+          title="All images in gray color"
+        >
           Insane mode
         </button>
-        <button onclick="Game.reload()">Restart Game</button>
-        <button onclick="location.reload()">Load New Cards</button>
+        <button onclick="Game.reload()" title="Shuffle cards">
+          Restart Game
+        </button>
+        <button onclick="location.reload()" title="Load new images">
+          Load New Cards
+        </button>
       </section>
       <footer>
         <small>
           <p>
             Created by
-            <a href="https://github.com/galiprandi">Germán Aliprandi</a>
+            <a href="https://github.com/galiprandi" target="_blank"
+              >Germán Aliprandi</a
+            >
           </p>
           <p>
             Power by
