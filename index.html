@@ -80,7 +80,12 @@
       >
         CLOSE
       </button>
-      <button id="closeDialog" onclick="Game.reload()">PLAY AGAIN</button>
+      <button
+        id="closeDialog"
+        onclick="Game.reload();Interface.closeWinDialog()"
+      >
+        PLAY AGAIN
+      </button>
     </dialog>
 
     <script src="main.js"></script>

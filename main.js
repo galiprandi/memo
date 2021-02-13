@@ -1,6 +1,8 @@
 /**
- Data Source:
-    https://picsum.photos/${cardSize}?random=${index}
+ * Author: Germán Aliprandi
+ * galiprandi@gmail.com
+ *
+ * Licence: MIT
  */
 
 let Config = null
@@ -96,6 +98,9 @@ const Interface = {
   },
 } // Interface
 
+/**
+ * Game related functions
+ */
 const Game = {
   endGame: false,
   previousClick: false,
@@ -229,6 +234,9 @@ const Game = {
   },
 } // Game
 
+/**
+ * Card related functions
+ */
 const Card = {
   uncoverCard: null,
   timeoutID: null,
@@ -307,7 +315,6 @@ const Card = {
 } // Card
 
 /**
- *
  * Utilities functions
  */
 
