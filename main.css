@@ -144,6 +144,7 @@ aside > * > * {
     transform: translateY(100%);
     left: 0;
     right: 0;
+    justify-content: unset;
   }
 
   aside.active {
@@ -173,6 +174,10 @@ aside > * > * {
   aside.active::before,
   aside.active::after {
     transform: rotate(-90deg);
+  }
+
+  aside header h1 {
+    margin: 0;
   }
 
   .board {
