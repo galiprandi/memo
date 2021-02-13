@@ -31,15 +31,15 @@ const gameParameters = {
 
 const Game = {
   endGame: false,
-  previusClick: false,
-  previusCard: false,
+  previousClick: false,
+  previousCard: false,
   uncoverPairs: 0,
-  attempts: 0,
+  Attempts: 0,
 
   win: () => {
     Game.endGame
     Game.timerStop()
-    alert(`Congratulations, you have won in ${Game.attempts} attempts !`)
+    alert(`Congratulations, you have won in ${Game.Attempts} Attempts !`)
   },
 
   changeLevel: (level) => {
@@ -60,10 +60,10 @@ const Game = {
     container.classList.toggle("insane")
   },
 
-  newAttemps: () => {
-    Game.attempts++
-    const showAttemps = document.getElementById("attempts")
-    showAttemps.innerText = Game.attempts
+  newAttempt: () => {
+    Game.Attempts++
+    const showAttempts = document.getElementById("attempts")
+    showAttempts.innerText = Game.Attempts
   },
 
   calculateCardSize: () => {
@@ -89,19 +89,36 @@ const Game = {
     container.style.visibility = "hidden"
     container.innerHTML = ""
 
-    for (let index = 0; index < Config.numberOfCards / 2; index++) {
-      const src = `https://picsum.photos/${cardSize}?random=${index}`
+    const arrayOfCard = new Array(Config.numberOfCards / 2).fill(null)
 
-      const card = Card.createNewCard(index, src)
+    // Create array of card
+    cardsArray = arrayOfCard.map(
+      (item, index) =>
+        Card.createNewCard(
+          index,
+          `https://source.unsplash.com/collection/${index}/${cardSize}x${cardSize}`
+        )
+      // Source 2: `https://picsum.photos/${cardSize}?random=${index}`
+    )
+
+    // Add cards to container
+    cardsArray.map((card) => {
+      const cloneCard = card.cloneNode(true)
+
+      // card.classList.add("uncover")
+      // cloneCard.classList.add("uncover")
+
       container.appendChild(card)
-    }
+      container.appendChild(cloneCard)
+    })
 
-    container.innerHTML += container.innerHTML
-    suffleChildNodes("board")
+    // Shuffle children of container
+    container.children = shuffleChildren(container)
+
     container.style.visibility = "visible"
 
-    Game.previusClick = Game.previusCard = null
-    Game.uncoverPairs = Game.attempts = 0
+    Game.previousClick = Game.previousCard = null
+    Game.uncoverPairs = Game.Attempts = 0
     document.getElementById("attempts").innerText = 0
     document.getElementById("discovery").innerText = 0
   },
@@ -160,20 +177,20 @@ const Card = {
       Card.uncoverCard != null &&
       Card.uncoverCard.dataset.pairid === card.dataset.pairid
     ) {
-      // Good Attemp
+      // Good Attempt
       Card.uncoverPair(card.dataset.pairid)
 
       if (Config.numberOfCards / 2 === Game.uncoverPairs) {
-        Game.newAttemps()
+        Game.newAttempt()
         Game.win()
       }
     } else {
-      // Bad Attemp
+      // Bad Attempt
       Card.showCard(card)
       Card.coverPair(card.dataset.pairid)
       Card.uncoverCard = null
     }
-    Game.newAttemps()
+    Game.newAttempt()
     Card.uncoverCard = null
   },
 
@@ -218,6 +235,10 @@ const Card = {
 // Initial Function
 document.addEventListener("DOMContentLoaded", () => {
   container = document.getElementById("board")
+  const aside = document.getElementById("aside")
+
+  if (aside)
+    aside.addEventListener("mouseup", () => aside.classList.toggle("active"))
 
   if (container)
     container.addEventListener("mouseup", (target) => {
@@ -243,19 +264,14 @@ function loadLevels() {
   })
 }
 
-/**
- * Suffle Child Node of HTML Element
- *
- */
-function suffleChildNodes(nodeId) {
-  const node = document.getElementById(nodeId)
-  let array = arraySuflle([...node.childNodes])
-  node.innerHTML = ""
-  array.map((childNode) => node.appendChild(childNode))
+// Return shuffle node
+function shuffleChildren(node) {
+  shuffleArray([...node.children]).map((item) => node.appendChild(item))
+  return node
 }
 
-// Suffle Array
-function arraySuflle(array) {
+// Shuffle Array
+function shuffleArray(array) {
   return array
     .map((a) => ({ sort: Math.random(), value: a }))
     .sort((a, b) => a.sort - b.sort)

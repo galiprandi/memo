@@ -58,28 +58,31 @@ button.danger.active {
 }
 
 /* Aside Styles */
+
 aside {
-  margin: 1em 0;
-  font-size: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 1em;
+  min-height: 80%;
   background-color: aliceblue;
   color: rgb(58, 58, 58);
   border-radius: 0.5em;
   padding: 1em;
   text-align: center;
   text-transform: uppercase;
+  transition: 0.5s 0.3s all ease-in-out;
 }
 
 aside > * > * {
-  margin: auto;
   text-align: center;
-  margin-bottom: 1em;
-  width: 80%;
-  text-align: center;
+  width: 100%;
 }
 
-/* Option styles */
-.options {
-  margin-top: 6em;
+/* level option section */
+.options > * {
+  display: block;
+  margin-bottom: 1em;
 }
 
 /* Board styles */
@@ -125,8 +128,55 @@ aside > * > * {
   opacity: 0;
 }
 
-footer {
-  position: absolute;
-  bottom: 0;
-  margin: 1em 0;
+@media screen and (max-width: 768px) {
+  body {
+    max-height: 100vh;
+    overflow: hidden;
+  }
+
+  .board {
+    margin-bottom: 10em;
+  }
+
+  aside {
+    position: absolute;
+    bottom: 10em;
+    transform: translateY(100%);
+    left: 0;
+    right: 0;
+  }
+
+  aside.active {
+    position: fixed;
+    bottom: 50%;
+    transform: translateY(50%);
+  }
+
+  aside::before,
+  aside::after {
+    display: block;
+    content: "\1F448";
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: rotate(90deg);
+    font-weight: bolder;
+    margin: 10px;
+    font-size: 2em;
+  }
+
+  aside::before {
+    right: unset;
+    left: 0;
+  }
+
+  aside.active::before,
+  aside.active::after {
+    transform: rotate(-90deg);
+  }
+
+  .board {
+    width: 100vw;
+    padding-bottom: 2em;
+  }
 }
