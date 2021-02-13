@@ -66,10 +66,10 @@ const Interface = {
 
     levelSelector.innerText = ""
 
-    Object.entries(gameParameters).map((x) => {
+    Object.entries(gameParameters).map((item) => {
       const option = document.createElement("option")
-      option.value = x[0]
-      option.innerText = x[1].name
+      option.value = item[0]
+      option.innerText = item[1].name
 
       levelSelector.appendChild(option)
     })
@@ -113,10 +113,13 @@ const Game = {
     Interface.loadLevelSelector()
 
     Config = Object.values(gameParameters)[level]
+
     console.info(`Level: ${Config.name}, ${Config.numberOfCards} cards.`)
+
     document.getElementById("level").getElementsByTagName("option")[
       level
     ].selected = "selected"
+
     Game.reload()
     Game.timerStop()
     Game.timerReset()
