@@ -6,6 +6,29 @@
 let Config = null
 let container
 
+// Initial Function
+document.addEventListener("DOMContentLoaded", () => {
+  container = document.getElementById("board")
+  const aside = document.getElementById("aside")
+
+  if (aside)
+    aside.addEventListener("mouseup", (target) => {
+      if (target.target.id === "level") return
+      aside.classList.toggle("active")
+    })
+
+  if (container)
+    container.addEventListener("mouseup", (target) => {
+      const card = target.target
+      Card.click(card)
+    })
+
+  Game.changeLevel(1)
+})
+
+/**
+ * Game Parameters Configurations
+ */
 const gameParameters = {
   0: {
     name: "Mom's Baby",
@@ -23,27 +46,72 @@ const gameParameters = {
     timeToShow: 2000,
   },
   3: {
-    name: "Insane",
+    name: "Crazy Thing",
     numberOfCards: 64,
     timeToShow: 1000,
   },
+  4: {
+    name: "WTF !",
+    numberOfCards: 100,
+    timeToShow: 700,
+  },
 }
+
+/**
+ * Interface functions
+ */
+const Interface = {
+  loadLevelSelector: () => {
+    const levelSelector = document.getElementById("level")
+
+    levelSelector.innerText = ""
+
+    Object.entries(gameParameters).map((x) => {
+      const option = document.createElement("option")
+      option.value = x[0]
+      option.innerText = x[1].name
+
+      levelSelector.appendChild(option)
+    })
+  },
+
+  updateAttempts: (number) => {
+    const displayAttempts = document.querySelectorAll(".attempts")
+    displayAttempts.forEach((item) => (item.innerText = number))
+  },
+
+  updateDiscoveryPairs: (number) => {
+    const discoveryPairs = document.querySelectorAll(".discoveryPairs")
+    discoveryPairs.forEach((item) => (item.innerText = number))
+  },
+
+  showWinDialog: () => {
+    const dialog = document.getElementById("winDialog")
+    dialog.setAttribute("open", true)
+  },
+
+  closeWinDialog: () => {
+    const dialog = document.getElementById("winDialog")
+    dialog.removeAttribute("open")
+  },
+} // Interface
 
 const Game = {
   endGame: false,
   previousClick: false,
   previousCard: false,
   uncoverPairs: 0,
-  Attempts: 0,
+  attempts: 0,
 
   win: () => {
     Game.endGame
     Game.timerStop()
-    alert(`Congratulations, you have won in ${Game.Attempts} Attempts !`)
+    Interface.showWinDialog()
   },
 
   changeLevel: (level) => {
-    loadLevels()
+    Interface.loadLevelSelector()
+
     Config = Object.values(gameParameters)[level]
     console.info(`Level: ${Config.name}, ${Config.numberOfCards} cards.`)
     document.getElementById("level").getElementsByTagName("option")[
@@ -61,9 +129,9 @@ const Game = {
   },
 
   newAttempt: () => {
-    Game.Attempts++
-    const showAttempts = document.getElementById("attempts")
-    showAttempts.innerText = Game.Attempts
+    Game.attempts++
+
+    Interface.updateAttempts(Game.attempts)
   },
 
   calculateCardSize: () => {
@@ -118,9 +186,12 @@ const Game = {
     container.style.visibility = "visible"
 
     Game.previousClick = Game.previousCard = null
-    Game.uncoverPairs = Game.Attempts = 0
-    document.getElementById("attempts").innerText = 0
-    document.getElementById("discovery").innerText = 0
+    Game.uncoverPairs = Game.attempts = 0
+
+    Interface.updateAttempts(Game.attempts)
+    Interface.updateDiscoveryPairs(Game.uncoverPairs)
+    Game.timerStop()
+    Game.timerReset()
   },
 
   // Timer Function
@@ -205,10 +276,10 @@ const Card = {
 
   uncoverPair: (id) => {
     Game.uncoverPairs++
-    const showDiscovery = document.getElementById("discovery")
-    showDiscovery.innerText = Game.uncoverPairs
+
+    Interface.updateDiscoveryPairs(Game.uncoverPairs)
     const pairs = [...document.querySelectorAll(`[data-pairid='${id}']`)]
-    pairs.forEach((card) => card.classList.add("uncover"))
+    pairs.forEach((item) => item.classList.add("uncover"))
   },
 
   hideActiveCards: () => {
@@ -232,37 +303,10 @@ const Card = {
   },
 } // Card
 
-// Initial Function
-document.addEventListener("DOMContentLoaded", () => {
-  container = document.getElementById("board")
-  const aside = document.getElementById("aside")
-
-  if (aside)
-    aside.addEventListener("mouseup", () => aside.classList.toggle("active"))
-
-  if (container)
-    container.addEventListener("mouseup", (target) => {
-      const card = target.target
-      Card.click(card)
-    })
-
-  Game.changeLevel(1)
-  // Game.reload()
-})
-
-function loadLevels() {
-  const levelIndicator = document.getElementById("level")
-
-  levelIndicator.innerText = ""
-
-  Object.entries(gameParameters).map((x) => {
-    const option = document.createElement("option")
-    option.value = x[0]
-    option.innerText = x[1].name
-
-    levelIndicator.appendChild(option)
-  })
-}
+/**
+ *
+ * Utilities functions
+ */
 
 // Return shuffle node
 function shuffleChildren(node) {

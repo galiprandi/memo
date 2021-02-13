@@ -20,8 +20,8 @@
       </header>
 
       <section class="stat" title="Game Statistics">
-        <h4>Attempts: <span id="attempts">0</span></h4>
-        <h4>Discovery: <span id="discovery">0</span> pairs</h4>
+        <h4>Attempts: <span class="attempts">0</span></h4>
+        <h4>Discovery: <span class="discoveryPairs">0</span> pairs</h4>
         <h4>Time: <span id="timer">00:00:00</span></h4>
       </section>
       <section class="options" id="options" title="Select game difficulty">
@@ -40,7 +40,7 @@
           Insane mode
         </button>
         <button onclick="Game.reload()" title="Shuffle cards">
-          Restart Game
+          Shuffle Again
         </button>
         <button onclick="location.reload()" title="Load new images">
           Load New Cards
@@ -62,16 +62,26 @@
           >
           <p>
             Power by
-            <a
-              href="https://picsum.photos/"
-              target="_blank"
-              rel="noopener noreferrer"
-              >Lorem Picsum Photos</a
+            <a href="//unsplash.com" target="_blank" rel="noopener noreferrer"
+              >unsplash.com</a
             >
           </p>
         </small>
       </footer>
     </aside>
+    <dialog id="winDialog">
+      <i>🤟</i>
+      <p>Congratulations !</p>
+      <p>You have won in <span class="attempts">0</span> attempts</p>
+      <button
+        id="closeDialog"
+        class="danger"
+        onclick="Interface.closeWinDialog()"
+      >
+        CLOSE
+      </button>
+      <button id="closeDialog" onclick="Game.reload()">PLAY AGAIN</button>
+    </dialog>
 
     <script src="main.js"></script>
   </body>
