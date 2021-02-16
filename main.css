@@ -40,11 +40,17 @@ a:hover {
 
 button,
 select {
-  border-radius: 3px;
-  border: 1px solid gray;
+  border-radius: 5px;
+  border: 1px solid lightgray;
   padding: 8px;
   text-align: center;
 }
+
+button:hover,
+select:hover {
+  box-shadow: 0 0 5px 0 tomato;
+}
+
 button {
   transition: 0.2s color linear;
 }
@@ -87,6 +93,7 @@ aside > * > * {
   display: block;
   margin-bottom: 1em;
   text-transform: inherit;
+  background-color: inherit;
 }
 
 /* Board styles */
