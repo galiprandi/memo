@@ -165,10 +165,10 @@ const Game = {
     container.style.visibility = "hidden"
     container.innerHTML = ""
 
-    const arrayOfCard = new Array(Config.numberOfCards / 2).fill(null)
+    const numberOfCard = new Array(Config.numberOfCards / 2).fill(null)
 
     // Create array of card
-    cardsArray = arrayOfCard.map(
+    const cardsArray = numberOfCard.map(
       (item, index) =>
         Card.createNewCard(
           index,
